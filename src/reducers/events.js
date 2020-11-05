@@ -1,12 +1,16 @@
 import {READ_EVENTS} from '../action'
-import {CREATE_EVENT} from '../action'
+import {CREATE_EVENTS} from '../action'
+import {DELETE_EVENT} from '../action'
 import _ from 'lodash'
 
-export default (state = {}, action) =>{
+export default (events = {}, action) =>{
    switch(action.type){
     case READ_EVENTS:
         return _.mapKeys(action.response.data, 'id')
-        default:
-        return state
+    case DELETE_EVENT:
+        delete events[action.id]
+        return {...events}
+    default:
+        return events
     }
 }
